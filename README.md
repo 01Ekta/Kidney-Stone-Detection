@@ -1,13 +1,18 @@
 ## Overview
+Kidney stones are small, hard mineral and salt deposits that form within the kidneys or urinary tract. Detecting kidney stones is crucial for several reasons, and failure to do so can result in significant threats to the body's health. Nowadays many practitioners are involved in including automation in the field of medical learning, hence i decided to indulge in the particular field as i were intrigued to work for it. Hence, we are experimenting with deep neural networks with transfer learning in medical image analysis.
 
 ## Project Description
 
 ## What is done in this Project?
 
 ## TechStack, frameworks and libraries Requirements
+- Tools: vs code
+- Programming Language: Python
+- Libraries: numpy, pandas, os, matplotlib, seaborn, opencv, sklearn-metrics, tensorflow, keras, random, glob, ssim, peak_signal_noise_ratio, mean_squared_error, scipy, skimage-restoration, models, layers, optimizers, metrics.
 
 ## Dataset Description and EDA
-i found this data on Kaggle named as [CT KIDNEY DATASET: Normal-Cyst-Tumor and Stone](https://www.kaggle.com/datasets/nazmul0087/ct-kidney-dataset-normal-cyst-tumor-and-stone)
+For this project, i utilized this dataset on Kaggle named as [CT KIDNEY DATASET: Normal-Cyst-Tumor and Stone](https://www.kaggle.com/datasets/nazmul0087/ct-kidney-dataset-normal-cyst-tumor-and-stone). The dataset consists of one folder inside which contains 12,446 unique data within which the cyst contains 3709, normal 5077, tumor 2283 and stone 1377 images, and a kidneyData.csv dataset which containes 6 columns that containes 2 integers value and 4 object/string value those were unnamed, image_id, path of file inside folder, diagnosis (tumour, cyst, stone, normal), target value, class.
+![image](https://github.com/user-attachments/assets/6c552658-80fc-4a9c-8277-a316d6803a73)
 
 ## Image Preprocessing Techniques Used
 
