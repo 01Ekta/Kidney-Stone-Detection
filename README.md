@@ -42,10 +42,60 @@ Two methods were used which were Dilation and Erosion
 ## Tranfer Learning Models Used
 
 ### 1.) CNN Architecture
+The Convolutional Neural Network (CNN) model presented for kidney stone detection leverages a sequential architecture with a series of layers designed to extract features, reduce dimensionality, and ultimately classify the images into one of four categories. The model begins with a Conv2D layer that applies 32 convolution filters of size 3x3 to the input images of shape (150, 150, 3). This layer uses the ReLU (Rectified Linear Unit) activation function, which introduces non-linearity to help the network learn complex patterns.
 
-### 2.) VGG_19
+Following this, a MaxPooling2D layer with a pool size of 2x2 is used to reduce the spatial dimensions (height and width) by a factor of 2. This down-sampling helps retain important features while reducing the computational load. The process is repeated with another Conv2D layer, which again applies 32 filters of size 3x3 and uses the ReLU activation function to introduce non-linearity. Another MaxPooling2D layer with a pool size of 2x2 further reduces the spatial dimensions.
+
+After the convolutional and pooling layers, the data is flattened into a 1D vector using a Flatten layer. This transformation is essential for feeding the data into fully connected (dense) layers, which are better suited for classification tasks. The first Dense layer contains 128 neurons and uses the ReLU activation function to introduce non-linearity. This layer is followed by another Dense layer with 4 neurons, corresponding to the four classes for classification. This final layer uses the Softmax activation function to output a probability distribution over the four classes, making it suitable for multi-class classification.
+
+The model is compiled using the Adam optimizer, which adjusts the learning rate dynamically during training, and the loss function used is Sparse Categorical Crossentropy, appropriate for multi-class classification problems with integer labels. The model's performance is evaluated using the accuracy metric. The training process involves running the model for 5 epochs, which refers to the number of complete passes through the training dataset.
+![flc](https://github.com/user-attachments/assets/fada8593-743e-4432-af4c-18d19329ecd6)
+
+### 2.) VGG_16
+VGG16 architecture, a deep convolutional neural network pre-trained on the ImageNet dataset, to classify images into four classes. By employing transfer learning, the model benefits from the features learned by VGG16, enhancing the efficiency and accuracy of the image classification task.
+
+#### a) Pre-trained VGG16 Model:
+- The architecture starts with the pre-trained VGG16 model. The include_top=False argument excludes the fully connected layers at the top of the model, making it act as a feature extractor.
+- The input shape is set to (150, 150, 3), matching the size of the input images.
+- pooling='max' applies global max pooling to the output of the convolutional base, ensuring a fixed-size output.
+- The weights are pre-trained on the ImageNet dataset.
+  
+#### b) Additional Layers:
+- After the VGG16 base, a Flatten layer is added to convert the multi-dimensional output from VGG16 into a 1D vector.
+- A Dense layer with 512 neurons and ReLU activation function follows, introducing non-linearity and enabling the model to learn complex patterns.
+- Batch Normalization is included after the Dense layer to normalize the inputs, improving training stability and convergence speed.
+- A Dropout layer with a dropout rate of 0.5 is used to prevent overfitting by randomly setting half of the input units to zero during training.
+- The final Dense layer has 4 neurons (one for each class) with a Softmax activation function, producing a probability distribution over the classes.
+
+#### c) Training Configuration:
+- The pre-trained VGG16 model's weights are set to non-trainable (pretrained_model.trainable=False), ensuring that only the newly added layers are trained.
+- The model is compiled using the Adam optimizer, which adjusts the learning rate dynamically during training.
+- Sparse Categorical Crossentropy is used as the loss function, appropriate for multi-class classification with integer labels.
+- Accuracy is used as the metric to evaluate the model's performance.
+  
+#### d) Training:
+The model is trained for 5 epochs using the training and validation datasets. During each epoch, the model's weights are updated to minimize the loss and improve accuracy on the validation set.
 
 ### 3.) MobileNet
+The architecture begins with the inclusion of the MobileNetV2 model, which is pre-trained on the ImageNet dataset. The include_top=False argument removes the final fully connected layer of MobileNetV2, allowing it to be used as a feature extractor. The input shape is specified as (150, 150, 3), corresponding to the size of the images used in this task. The pooling='max' argument ensures that the output of the MobileNetV2 model is a fixed-size vector by applying global max pooling.
+
+Following the pre-trained MobileNetV2 model, the architecture is extended with additional layers to tailor it for the specific classification task. The output from MobileNetV2 is flattened using a Flatten layer, transforming the multi-dimensional output into a 1D vector. A Dense layer with 512 neurons and ReLU activation function is added next, introducing non-linearity and enabling the network to learn complex patterns. To improve training stability and accelerate convergence, a Batch Normalization layer is included, which normalizes the inputs of the Dense layer.
+
+To prevent overfitting, a Dropout layer with a dropout rate of 0.5 is added, randomly setting half of the input units to zero during training. The final layer of the model is a Dense layer with 4 neurons, corresponding to the four classes for classification. This layer uses the Softmax activation function to output a probability distribution over the four classes.
+
+The pre-trained MobileNetV2 model is set to non-trainable (pretrained_model.trainable=False), meaning its weights will not be updated during training. This approach allows the model to leverage the learned features from ImageNet while only training the newly added layers.
+
+The model is compiled with the Adam optimizer, which dynamically adjusts the learning rate, and uses Sparse Categorical Crossentropy as the loss function, suitable for multi-class classification problems with integer labels. The model's performance is evaluated using accuracy. The training process is set for 5 epochs, where the model iteratively updates its weights to minimize the loss and improve accuracy on the validation dataset.
 
 ## Class Balancing with SMOTE
+SMOTE(Synthetic Minority Over-sampling TEchnique) is a method used to address class imbalance in datasets. It works by generating synthetic instances of the minority class to balance the dataset. SMOTE identifies minority class samples and their nearest neighbors, then creates new synthetic samples by interpolating between these points. This technique helps improve model performance by providing a more balanced training set, which reduces bias towards the majority class and enhances the model's ability to detect and classify minority class instances accurately.  
+I have applied SMOTE to avoid overfitting as dataset consist of imbalance class of data for stone, tumor, cyst and normal with 1834, 1101, 1242 and 4069 respectively.
+
 ## Results 
+#### Application of models with preprocessing and without class balancing
+- Training accuracy of CNN, VGG16 and MobileNet were 99.124%, 91.744% and 95.134%
+- Validation accuracy of CNN, VGG16 and MobileNet were 100%, 93.138% and 97.042%
+  
+#### Application of models with preprocessing & class balancing
+- Training accuracy of CNN, VGG16 and MobileNet were 100%, 97.33% and 98.57%
+- Validation accuracy of CNN, VGG16 and MobileNet were 100%, 90.50% and 91.02%
