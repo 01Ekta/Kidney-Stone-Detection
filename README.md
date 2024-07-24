@@ -2,8 +2,20 @@
 Kidney stones are small, hard mineral and salt deposits that form within the kidneys or urinary tract. Detecting kidney stones is crucial for several reasons, and failure to do so can result in significant threats to the body's health. Nowadays many practitioners are involved in including automation in the field of medical learning, hence i decided to indulge in the particular field as i were intrigued to work for it. Hence, we are experimenting with deep neural networks with transfer learning in medical image analysis.
 
 ## Project Description
+The purpose is to create a technology that accelerates diagnostic procedure while simultaneously increasing kidney stone detection accuracy. This study focuses on automatic kidney stone identification because kidney stones offer substantial health concerns if left unnoticed and can improve medical diagnosis. The study integrates kidney stones, image segmentation, and image enhancement with deep neural networks and transfer learning to increase diagnostic accuracy. This project focuses on the use of Convolutional Neural Networks (CNNs) models in addition to well-known architectures like VGG16 and MobileNet. These models are skilled at diagnosing kidney stones by deciphering intricate patterns and features from medical imaging. Transfer Learning achieves high accuracy while using less large amounts of training information and computational power by using knowledge from pre-trained networks.
+
+In medical imaging, data variability and quality pose a significant barrier. The project uses cutting-edge image processing methods for this. Kidney stones and other regions of interest are best separated from the surrounding tissue using image segmentation. This step is essential, in order to minimize background noise and direct the model's attention on the relevant features. Furthermore, picture upscaling techniques are employed to enhance the quality and detail of images, a crucial aspect of precise stone identification.
+
+In this project, data augmentation is significant since it increases the amount and diversity of the dataset, both of which are necessary for training effective models. Several scenarios and conditions that the model might face in practical applications are simulated by means of techniques including translation, scaling, and rotation. This stage guarantees that the model is applicable to various kidney stone instances and is both accurate and generalizable.
+
+It also uses the Synthetic Minority Oversampling Technique (SMOTE) to solve the issue of class imbalance in medical materials. This method can successfully identify various kidney stone sizes and types while also assisting in the creation of a balanced dataset and ensuring that the model does not lean towards the majority category. When assessing models, a number of criteria are taken into account, such as specificity, sensitivity, and accuracy. These measurements offer a thorough analysis of every model and its performance, revealing its advantages and disadvantages under different conditions.<br>
+The best methods for kidney stone detection can be discovered by comparing models under variouspreprocessing settings.
 
 ## What is done in this Project?
+- Data Augmentation: This step involved artificially increasing the size and diversity of the dataset to ensure robust training of the models.
+- Image Preprocessing: Techniques such as image segmentation and enhancement were used to improve the quality of the input images.
+- Class Balancing: SMOTE was used to address class imbalances by creating synthetic samples of the minority class (kidney stone images).
+- Model Building: Created a CNN model architecture and worked on two transfer learning model VGG_16 & MobileNet on two types of dataset that is class imbalance and class balance dataset. Then compared the accuracy score of all three models on both these datasets.
 
 ## TechStack, frameworks and libraries Requirements
 - Tools: vs code
@@ -76,6 +88,8 @@ VGG16 architecture, a deep convolutional neural network pre-trained on the Image
 #### d) Training:
 The model is trained for 5 epochs using the training and validation datasets. During each epoch, the model's weights are updated to minimize the loss and improve accuracy on the validation set.
 
+![vgg16](https://github.com/user-attachments/assets/6b4ed00b-86a6-45bc-8d73-8dac63abd388)
+
 ### 3.) MobileNet
 The architecture begins with the inclusion of the MobileNetV2 model, which is pre-trained on the ImageNet dataset. The include_top=False argument removes the final fully connected layer of MobileNetV2, allowing it to be used as a feature extractor. The input shape is specified as (150, 150, 3), corresponding to the size of the images used in this task. The pooling='max' argument ensures that the output of the MobileNetV2 model is a fixed-size vector by applying global max pooling.
 
@@ -86,6 +100,8 @@ To prevent overfitting, a Dropout layer with a dropout rate of 0.5 is added, ran
 The pre-trained MobileNetV2 model is set to non-trainable (pretrained_model.trainable=False), meaning its weights will not be updated during training. This approach allows the model to leverage the learned features from ImageNet while only training the newly added layers.
 
 The model is compiled with the Adam optimizer, which dynamically adjusts the learning rate, and uses Sparse Categorical Crossentropy as the loss function, suitable for multi-class classification problems with integer labels. The model's performance is evaluated using accuracy. The training process is set for 5 epochs, where the model iteratively updates its weights to minimize the loss and improve accuracy on the validation dataset.
+
+![Untitled Diagram drawio](https://github.com/user-attachments/assets/31c87785-8f84-462f-8061-f2ebaf0d4f31)
 
 ## Class Balancing with SMOTE
 SMOTE(Synthetic Minority Over-sampling TEchnique) is a method used to address class imbalance in datasets. It works by generating synthetic instances of the minority class to balance the dataset. SMOTE identifies minority class samples and their nearest neighbors, then creates new synthetic samples by interpolating between these points. This technique helps improve model performance by providing a more balanced training set, which reduces bias towards the majority class and enhances the model's ability to detect and classify minority class instances accurately.  
